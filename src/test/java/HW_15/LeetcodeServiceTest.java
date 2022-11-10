@@ -30,4 +30,18 @@ public class LeetcodeServiceTest {
 
         Assert.assertArrayEquals(result, leetcodeService.twoSum(nums, target));
     }
+
+    @Test
+    public void formFibonacciSequence_ShouldReturnCorrectResult() {
+        int input = 4;
+        int result = 3;
+
+        Assert.assertEquals(result, leetcodeService.formFibonacciSequence(input));
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void formFibonacciSequence_ShouldThrowArithmeticException() {
+        leetcodeService.formFibonacciSequence(-1);
+    }
+
 }
