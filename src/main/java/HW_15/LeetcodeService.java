@@ -15,4 +15,16 @@ public class LeetcodeService {
         }
         return new int[2];
     }
+
+    public int formFibonacciSequence(int input) throws ArithmeticException {
+        if (input < 0) throw new ArithmeticException();
+
+        int[] fibonacciSequence = new int[input + 2];
+        fibonacciSequence[0] = 0;
+        fibonacciSequence[1] = 1;
+        for (int i = 2; i <= input; i++) {
+            fibonacciSequence[i] = fibonacciSequence[i - 1] + fibonacciSequence[i - 2];
+        }
+        return fibonacciSequence[input];
+    }
 }
