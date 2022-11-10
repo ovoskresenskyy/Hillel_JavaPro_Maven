@@ -43,5 +43,4 @@ public class LeetcodeServiceTest {
     public void formFibonacciSequence_ShouldThrowArithmeticException() {
         leetcodeService.formFibonacciSequence(-1);
     }
-
 }
