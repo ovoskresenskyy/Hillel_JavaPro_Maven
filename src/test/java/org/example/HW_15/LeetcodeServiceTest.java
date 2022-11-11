@@ -1,5 +1,6 @@
-package HW_15;
+package org.example.HW_15;
 
+import org.example.HW_15.LeetcodeService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

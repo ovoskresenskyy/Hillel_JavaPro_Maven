@@ -1,4 +1,4 @@
-package HW_15;
+package org.example.HW_15;
 
 import java.util.ArrayList;
 import java.util.HashMap;
