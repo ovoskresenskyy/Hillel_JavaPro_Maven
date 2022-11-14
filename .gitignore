@@ -121,3 +121,5 @@ fabric.properties
 *.lst
 /target/maven-archiver/pom.properties
 *.txt
+/src/main/resources/HW_16/petShelter.json
+/target/classes/HW_16/petShelter.json
