@@ -14,9 +14,7 @@ public class ApplicationService {
                 == == == == == == == == == == == ==
                 """);
 
-        Scanner scanner = new Scanner(System.in);
-        new PetShelterService(initPetShelter(), scanner);
-        scanner.close();
+        new PetShelterService(initPetShelter(), new Scanner(System.in));
     }
 
     private static PetShelter initPetShelter() {
