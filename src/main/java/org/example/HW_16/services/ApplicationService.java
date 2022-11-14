@@ -13,10 +13,10 @@ public class ApplicationService {
     public static void start() {
 
         System.out.println("""
+                
                 == == == == == == == == == == == ==
                 Pet shelter application welcomes you
-                == == == == == == == == == == == ==
-                """);
+                == == == == == == == == == == == ==""");
 
         petShelterSerializer = new PetShelterSerializer();
         petShelter = petShelterSerializer.deserialize();
@@ -28,5 +28,6 @@ public class ApplicationService {
 
         petShelterSerializer.serialize(petShelter);
         scanner.close();
+        System.exit(0);
     }
 }

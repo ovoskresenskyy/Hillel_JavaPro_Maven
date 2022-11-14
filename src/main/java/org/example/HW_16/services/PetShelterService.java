@@ -41,8 +41,9 @@ public class PetShelterService {
         KindOfPet kindOfPet = chooseKindOfPet();
         Gender gender = chooseGender();
 
-        System.out.println("Enter breed");
-        String breed = scanner.next();
+        System.out.print("Enter breed: ");
+        scanner.nextLine();
+        String breed = scanner.nextLine();
 
         return Pet.builder()
                 .kind(kindOfPet)
@@ -89,7 +90,7 @@ public class PetShelterService {
         boolean wrongInput = true;
 
         do {
-            String userInput = scanner.next();
+            String userInput = scanner.next().toLowerCase();
 
             if (userInput.equals("0")) {
                 wrongInput = false;

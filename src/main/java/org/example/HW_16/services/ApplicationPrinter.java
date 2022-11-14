@@ -10,7 +10,7 @@ public class ApplicationPrinter {
 
     private final PetShelter petShelter;
     private final PetShelterService petShelterService;
-    Scanner scanner;
+    private final Scanner scanner;
 
     public ApplicationPrinter(PetShelter petShelter, PetShelterService petShelterService, Scanner scanner) {
         this.petShelter = petShelter;
@@ -23,7 +23,7 @@ public class ApplicationPrinter {
         System.out.println("\n-----------------\n"
                 + "At the moment we have "
                 + petShelter.getDogsAviary().size() + " dogs and "
-                + petShelter.getCatsAviary().size() + " cats.\n\n"
+                + petShelter.getCatsAviary().size() + " cats.\n"
                 + "[1] Leave the pet\n"
                 + "[2] Take the pet\n"
                 + "[x] Exit");
@@ -32,6 +32,7 @@ public class ApplicationPrinter {
     }
 
     private void selectMainMenuItem() {
+
         switch (scanner.next().toLowerCase()) {
             case "1" -> petShelterService.leavePet();
             case "2" -> printTakingPetMenu();
@@ -41,16 +42,17 @@ public class ApplicationPrinter {
     }
 
     public void printTakingPetMenu() {
+
         System.out.println("""
                 [1] Take the dog
                 [2] Take the cat
-                [0] To the main menu
+                [0] Back to main menu
                 [x] Exit""");
-
         selectKindOfTakingPet();
     }
 
     private void selectKindOfTakingPet() {
+
         switch (scanner.next().toLowerCase()) {
             case "1" -> printPets(petShelter.getDogsAviary());
             case "2" -> printPets(petShelter.getCatsAviary());
@@ -61,6 +63,7 @@ public class ApplicationPrinter {
     }
 
     private void printPets(List<Pet> pets) {
+
         if (pets.size() == 0) {
             System.out.println("Sorry, no pets here");
             printTakingPetMenu();
@@ -71,7 +74,7 @@ public class ApplicationPrinter {
                     + pet.toString()));
 
             System.out.println("""
-                    [0] To the previous menu
+                    [0] Back to previous menu
                     [x] Exit
                     Select a pet""");
 
@@ -80,6 +83,7 @@ public class ApplicationPrinter {
     }
 
     public static void printGendersToChose() {
+
         System.out.println("""
                 Choose gender:
                 [1] Male
@@ -87,6 +91,7 @@ public class ApplicationPrinter {
     }
 
     public static void printKindOfPetsToChose() {
+
         System.out.println("""
                 Choose kind of pet:
                 [1] Dog
