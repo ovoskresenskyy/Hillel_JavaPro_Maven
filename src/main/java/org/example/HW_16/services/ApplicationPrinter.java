@@ -35,7 +35,7 @@ public class ApplicationPrinter {
         switch (scanner.next().toLowerCase()) {
             case "1" -> petShelterService.leavePet();
             case "2" -> printTakingPetMenu();
-            case "x" -> ApplicationService.closeApplication(petShelter, scanner);
+            case "x" -> ApplicationService.closeApplication();
             default -> printMainMenu();
         }
     }
@@ -44,7 +44,8 @@ public class ApplicationPrinter {
         System.out.println("""
                 [1] Take the dog
                 [2] Take the cat
-                [x] To the main menu""");
+                [0] To the main menu
+                [x] Exit""");
 
         selectKindOfTakingPet();
     }
@@ -53,7 +54,8 @@ public class ApplicationPrinter {
         switch (scanner.next().toLowerCase()) {
             case "1" -> printPets(petShelter.getDogsAviary());
             case "2" -> printPets(petShelter.getCatsAviary());
-            case "x" -> printMainMenu();
+            case "0" -> printMainMenu();
+            case "x" -> ApplicationService.closeApplication();
             default -> printTakingPetMenu();
         }
     }
@@ -69,10 +71,11 @@ public class ApplicationPrinter {
                     + pet.toString()));
 
             System.out.println("""
-                    [x] To the previous menu
+                    [0] To the previous menu
+                    [x] Exit
                     Select a pet""");
 
-            petShelterService.giveOutPet(pets); //todo: Проверить
+            petShelterService.giveOutPet(pets);
         }
     }
 

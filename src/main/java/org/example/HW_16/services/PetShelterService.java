@@ -91,9 +91,11 @@ public class PetShelterService {
         do {
             String userInput = scanner.next();
 
-            if (userInput.equals("x")) {
+            if (userInput.equals("0")) {
                 wrongInput = false;
                 appPrinter.printTakingPetMenu();
+            } else if (userInput.equals("x")) {
+                ApplicationService.closeApplication();
             } else if (isInputCorrect(userInput, pets.size())) {
                 wrongInput = false;
                 pets.remove(Integer.parseInt(userInput) - 1);
