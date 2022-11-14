@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class ApplicationService {
 
-    private static final PetShelterSerializer PET_SHELTER_SERIALIZER = new PetShelterSerializer();
+    private static PetShelterSerializer petShelterSerializer;
+    private static PetShelter petShelter;
+    private static Scanner scanner;
 
-    public static void start(){
+    public static void start() {
 
         System.out.println("""
                 == == == == == == == == == == == ==
@@ -16,14 +18,15 @@ public class ApplicationService {
                 == == == == == == == == == == == ==
                 """);
 
-        new PetShelterService(PET_SHELTER_SERIALIZER.deserialize(), new Scanner(System.in));
+        petShelterSerializer = new PetShelterSerializer();
+        petShelter = petShelterSerializer.deserialize();
+        scanner = new Scanner(System.in);
+        new PetShelterService(petShelter, scanner);
     }
 
-    public static void closeApplication(PetShelter petShelter, Scanner scanner){
+    public static void closeApplication() {
 
-        PET_SHELTER_SERIALIZER.serialize(petShelter);
-
+        petShelterSerializer.serialize(petShelter);
         scanner.close();
-        System.exit(0);
     }
 }
