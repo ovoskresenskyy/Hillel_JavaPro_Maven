@@ -16,7 +16,7 @@ public class PetShelterSerializer {
         try {
             JSONMapper.writeValue(new File(path), petShelter);
         } catch (IOException e) {
-            System.out.println("Can't create file!");
+            System.out.println("Can't save Pet shelter state into the file!");
         }
     }
 
@@ -25,6 +25,7 @@ public class PetShelterSerializer {
         try {
             return JSONMapper.readValue(new File(path), PetShelter.class);
         } catch (IOException e) {
+            System.out.println("Nothing to restore. Created new pet shelter store.");
             return new PetShelter();
         }
     }
