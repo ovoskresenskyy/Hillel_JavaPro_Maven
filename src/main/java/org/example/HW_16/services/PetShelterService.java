@@ -10,30 +10,17 @@ import java.util.Scanner;
 
 public class PetShelterService {
 
-    private PetShelter petShelter;
-    private AppPrinter appPrinter;
+    private final PetShelter petShelter;
+    private final ApplicationPrinter appPrinter;
     private final Scanner scanner;
 
-    public PetShelterService(Scanner scanner) {
+    public PetShelterService(PetShelter petShelter, Scanner scanner) {
+
+        this.petShelter = petShelter;
         this.scanner = scanner;
-    }
 
-    public void start() {
-
-        System.out.println("""
-                == == == == == == == == == == == ==
-                Pet shelter application welcomes you
-                == == == == == == == == == == == ==
-                """);
-
-        initPetShelter();
-
-        appPrinter = new AppPrinter(petShelter, this, scanner);
+        appPrinter = new ApplicationPrinter(petShelter, this, scanner);
         appPrinter.printMainMenu();
-    }
-
-    private void initPetShelter() {
-        petShelter = new PetShelter(); //todo: Восстановить из файла
     }
 
     public void leavePet() {
@@ -65,7 +52,7 @@ public class PetShelterService {
     }
 
     private KindOfPet chooseKindOfPet() {
-        AppPrinter.printKindOfPetsToChose();
+        ApplicationPrinter.printKindOfPetsToChose();
 
         return switch (scanner.next()) {
             case "1" -> KindOfPet.DOG;
@@ -75,7 +62,7 @@ public class PetShelterService {
     }
 
     private Gender chooseGender() {
-        AppPrinter.printGendersToChose();
+        ApplicationPrinter.printGendersToChose();
 
         return switch (scanner.next()) {
             case "1" -> Gender.MALE;

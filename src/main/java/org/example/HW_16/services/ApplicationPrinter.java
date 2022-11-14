@@ -6,13 +6,13 @@ import org.example.HW_16.model.PetShelter;
 import java.util.List;
 import java.util.Scanner;
 
-public class AppPrinter {
+public class ApplicationPrinter {
 
     private final PetShelter petShelter;
     private final PetShelterService petShelterService;
     Scanner scanner;
 
-    public AppPrinter(PetShelter petShelter, PetShelterService petShelterService, Scanner scanner) {
+    public ApplicationPrinter(PetShelter petShelter, PetShelterService petShelterService, Scanner scanner) {
         this.petShelter = petShelter;
         this.petShelterService = petShelterService;
         this.scanner = scanner;
@@ -35,7 +35,7 @@ public class AppPrinter {
         switch (scanner.next().toLowerCase()) {
             case "1" -> petShelterService.leavePet();
             case "2" -> printTakingPetMenu();
-            case "x" -> closeApplication();
+            case "x" -> ApplicationService.closeApplication(scanner);
             default -> printMainMenu();
         }
     }
@@ -74,11 +74,6 @@ public class AppPrinter {
 
             petShelterService.giveOutPet(pets); //todo: Проверить
         }
-    }
-
-    private void closeApplication() {
-        scanner.close();
-        System.exit(0);
     }
 
     public static void printGendersToChose() {
