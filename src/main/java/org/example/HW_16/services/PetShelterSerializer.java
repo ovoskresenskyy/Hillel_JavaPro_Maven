@@ -9,9 +9,8 @@ import java.io.IOException;
 public class PetShelterSerializer {
 
     private final JsonMapper JSONMapper = new JsonMapper();
-    private final String path = "src/main/resources/HW_16/petShelter.json";
 
-    public void serialize(PetShelter petShelter) {
+    public void serialize(String path, PetShelter petShelter) {
 
         try {
             JSONMapper.writeValue(new File(path), petShelter);
@@ -20,7 +19,7 @@ public class PetShelterSerializer {
         }
     }
 
-    public PetShelter deserialize() {
+    public PetShelter deserialize(String path) {
 
         try {
             return JSONMapper.readValue(new File(path), PetShelter.class);

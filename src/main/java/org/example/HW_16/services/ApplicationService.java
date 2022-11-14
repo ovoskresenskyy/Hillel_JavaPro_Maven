@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class ApplicationService {
 
     private static PetShelterSerializer petShelterSerializer;
+    private static final String PATH_TO_STORE = "src/main/resources/HW_16/petShelter.json";
     private static PetShelter petShelter;
     private static Scanner scanner;
 
@@ -19,14 +20,14 @@ public class ApplicationService {
                 == == == == == == == == == == == ==""");
 
         petShelterSerializer = new PetShelterSerializer();
-        petShelter = petShelterSerializer.deserialize();
+        petShelter = petShelterSerializer.deserialize(PATH_TO_STORE);
         scanner = new Scanner(System.in);
         new PetShelterService(petShelter, scanner);
     }
 
     public static void closeApplication() {
 
-        petShelterSerializer.serialize(petShelter);
+        petShelterSerializer.serialize(PATH_TO_STORE, petShelter);
         scanner.close();
         System.exit(0);
     }
