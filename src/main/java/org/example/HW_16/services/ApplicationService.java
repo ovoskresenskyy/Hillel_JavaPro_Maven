@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class ApplicationService {
 
+    private static final PetShelterSerializer PET_SHELTER_SERIALIZER = new PetShelterSerializer();
+
     public static void start(){
 
         System.out.println("""
@@ -14,14 +16,12 @@ public class ApplicationService {
                 == == == == == == == == == == == ==
                 """);
 
-        new PetShelterService(initPetShelter(), new Scanner(System.in));
+        new PetShelterService(PET_SHELTER_SERIALIZER.deserialize(), new Scanner(System.in));
     }
 
-    private static PetShelter initPetShelter() {
-        return new PetShelter(); //todo: Восстановить из файла
-    }
+    public static void closeApplication(PetShelter petShelter, Scanner scanner){
 
-    public static void closeApplication(Scanner scanner){
+        PET_SHELTER_SERIALIZER.serialize(petShelter);
 
         scanner.close();
         System.exit(0);

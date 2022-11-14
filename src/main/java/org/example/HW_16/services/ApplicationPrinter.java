@@ -35,7 +35,7 @@ public class ApplicationPrinter {
         switch (scanner.next().toLowerCase()) {
             case "1" -> petShelterService.leavePet();
             case "2" -> printTakingPetMenu();
-            case "x" -> ApplicationService.closeApplication(scanner);
+            case "x" -> ApplicationService.closeApplication(petShelter, scanner);
             default -> printMainMenu();
         }
     }
@@ -69,7 +69,7 @@ public class ApplicationPrinter {
                     + pet.toString()));
 
             System.out.println("""
-                    "[x] To the previous menu
+                    [x] To the previous menu
                     Select a pet""");
 
             petShelterService.giveOutPet(pets); //todo: Проверить
