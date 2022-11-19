@@ -13,11 +13,11 @@ public class PetShelterSerializerTest {
 
     @Test
     public void serializeTest(){
-        petShelterSerializer.serialize(pathToTestStore, petShelter);
+        petShelterSerializer.saveToStorage(pathToTestStore, petShelter);
     }
 
     @Test
     public void deserializeTest(){
-        Assert.assertEquals(petShelter, petShelterSerializer.deserialize(pathToTestStore));
+        Assert.assertEquals(petShelter, petShelterSerializer.restoreFromStorage(pathToTestStore));
     }
 }

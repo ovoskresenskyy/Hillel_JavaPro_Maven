@@ -10,7 +10,7 @@ public class PetShelterSerializer {
 
     private final JsonMapper JSONMapper = new JsonMapper();
 
-    public void serialize(String path, PetShelter petShelter) {
+    public void saveToStorage(String path, PetShelter petShelter) {
 
         try {
             JSONMapper.writeValue(new File(path), petShelter);
@@ -19,12 +19,12 @@ public class PetShelterSerializer {
         }
     }
 
-    public PetShelter deserialize(String path) {
+    public PetShelter restoreFromStorage(String path) {
 
         try {
             return JSONMapper.readValue(new File(path), PetShelter.class);
         } catch (IOException e) {
-            System.out.println("Nothing to restore. Created new pet shelter store.");
+            System.out.println("Nothing to restore. Created new pet shelter storage.");
             return new PetShelter();
         }
     }
