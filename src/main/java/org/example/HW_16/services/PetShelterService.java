@@ -42,9 +42,7 @@ public class PetShelterService {
     public void leavePet() {
 
         Pet pet = registerPet();
-        List<Pet> petAviary = pet.getKind() == KindOfPet.DOG ?
-                petShelter.getDogsAviary() :
-                petShelter.getCatsAviary();
+        List<Pet> petAviary = pet.getKind() == KindOfPet.DOG ? getDogs() : getCats();
         petAviary.add(pet);
 
         appPrinter.printMainMenu();
