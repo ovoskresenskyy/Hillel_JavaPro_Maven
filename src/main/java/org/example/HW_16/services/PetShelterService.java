@@ -23,6 +23,22 @@ public class PetShelterService {
         appPrinter.printMainMenu();
     }
 
+    public int getCountOfDogs(){
+        return petShelter.getDogsAviary().size();
+    }
+
+    public int getCountOfCats(){
+        return petShelter.getCatsAviary().size();
+    }
+
+    public List<Pet> getDogs(){
+        return petShelter.getDogsAviary();
+    }
+
+    public List<Pet> getCats(){
+        return petShelter.getCatsAviary();
+    }
+
     public void leavePet() {
 
         Pet pet = registerPet();
