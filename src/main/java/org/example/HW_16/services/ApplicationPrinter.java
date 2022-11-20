@@ -1,63 +1,61 @@
 package org.example.HW_16.services;
 
 import org.example.HW_16.model.Pet;
-import org.example.HW_16.model.PetShelter;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class ApplicationPrinter {
 
-    private final PetShelter petShelter;
+    private final ApplicationService appService;
     private final PetShelterService petShelterService;
-    private final Scanner scanner;
 
-    public ApplicationPrinter(PetShelter petShelter, PetShelterService petShelterService, Scanner scanner) {
-        this.petShelter = petShelter;
+    public ApplicationPrinter(ApplicationService appService, PetShelterService petShelterService) {
+        this.appService = appService;
         this.petShelterService = petShelterService;
-        this.scanner = scanner;
     }
 
     public void printMainMenu() {
 
-        System.out.println("\n-----------------\n"
+        Server.sendMessage("\n-----------------\n"
                 + "At the moment we have "
-                + petShelter.getDogsAviary().size() + " dogs and "
-                + petShelter.getCatsAviary().size() + " cats.\n"
+                + petShelterService.getCountOfDogs() + " dogs and "
+                + petShelterService.getCountOfCats() + " cats.\n"
                 + "[1] Leave the pet\n"
                 + "[2] Take the pet\n"
-                + "[x] Exit");
+                + "[x] Exit\n");
 
         selectMainMenuItem();
     }
 
     private void selectMainMenuItem() {
 
-        switch (scanner.next().toLowerCase()) {
+        switch (Server.getUserInput().toLowerCase()) {
             case "1" -> petShelterService.leavePet();
             case "2" -> printTakingPetMenu();
-            case "x" -> ApplicationService.closeApplication();
+            case "x" -> appService.closeApplication();
             default -> printMainMenu();
         }
     }
 
     public void printTakingPetMenu() {
 
-        System.out.println("""
+        Server.sendMessage("""
                 [1] Take the dog
                 [2] Take the cat
                 [0] Back to main menu
-                [x] Exit""");
+                [x] Exit
+                """);
+
         selectKindOfTakingPet();
     }
 
     private void selectKindOfTakingPet() {
 
-        switch (scanner.next().toLowerCase()) {
-            case "1" -> printPets(petShelter.getDogsAviary());
-            case "2" -> printPets(petShelter.getCatsAviary());
+        switch (Server.getUserInput().toLowerCase()) {
+            case "1" -> printPets(petShelterService.getDogs());
+            case "2" -> printPets(petShelterService.getCats());
             case "0" -> printMainMenu();
-            case "x" -> ApplicationService.closeApplication();
+            case "x" -> appService.closeApplication();
             default -> printTakingPetMenu();
         }
     }
@@ -65,18 +63,15 @@ public class ApplicationPrinter {
     private void printPets(List<Pet> pets) {
 
         if (pets.size() == 0) {
-            System.out.println("Sorry, no pets here");
+            Server.sendMessage("Sorry, no pets here");
             printTakingPetMenu();
         } else {
-            pets.forEach(pet -> System.out.println("["
-                    + (pets.indexOf(pet) + 1)
-                    + "] "
-                    + pet.toString()));
-
-            System.out.println("""
+            pets.forEach(pet -> Server.sendMessage("["+ (pets.indexOf(pet) + 1)+ "] "+ pet.toString()));
+            Server.sendMessage("""
                     [0] Back to previous menu
                     [x] Exit
-                    Select a pet""");
+                    Select a pet:
+                    """);
 
             petShelterService.giveOutPet(pets);
         }
@@ -84,17 +79,19 @@ public class ApplicationPrinter {
 
     public static void printGendersToChose() {
 
-        System.out.println("""
-                Choose gender:
+        Server.sendMessage("""
                 [1] Male
-                [2] Female""");
+                [2] Female
+                Choose gender:
+                """);
     }
 
     public static void printKindOfPetsToChose() {
 
-        System.out.println("""
-                Choose kind of pet:
+        Server.sendMessage("""
                 [1] Dog
-                [2] Cat""");
+                [2] Cat
+                Choose kind of pet:
+                """);
     }
 }
