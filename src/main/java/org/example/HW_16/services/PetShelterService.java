@@ -10,12 +10,12 @@ import java.util.Scanner;
 
 public class PetShelterService {
 
+    private final ApplicationService appService;
     private final PetShelter petShelter;
-    private final ApplicationPrinter appPrinter;
-    private final Scanner scanner;
 
-    public PetShelterService(PetShelter petShelter, Scanner scanner) {
+    public PetShelterService(ApplicationService appService, PetShelter petShelter) {
 
+        this.appService = appService;
         this.petShelter = petShelter;
         this.scanner = scanner;
 
@@ -45,7 +45,7 @@ public class PetShelterService {
         List<Pet> petAviary = pet.getKind() == KindOfPet.DOG ? getDogs() : getCats();
         petAviary.add(pet);
 
-        appPrinter.printMainMenu();
+        appService.applicationPrinter.printMainMenu();
     }
 
     private Pet registerPet() {
@@ -108,9 +108,9 @@ public class PetShelterService {
 
             if (userInput.equals("0")) {
                 wrongInput = false;
-                appPrinter.printTakingPetMenu();
+                appService.applicationPrinter.printTakingPetMenu();
             } else if (userInput.equals("x")) {
-                ApplicationService.closeApplication();
+                appService.closeApplication();
             } else if (isInputCorrect(userInput, pets.size())) {
                 wrongInput = false;
                 pets.remove(Integer.parseInt(userInput) - 1);
