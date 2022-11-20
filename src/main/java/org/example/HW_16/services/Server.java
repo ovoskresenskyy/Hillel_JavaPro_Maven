@@ -35,7 +35,7 @@ public class Server {
 
     public static void sendMessage(String message){
         try {
-            writer.write("\n" + message);
+            writer.write(message);
             writer.flush();
         } catch (IOException e) {
             System.out.println("Message didn't send to user.");
