@@ -6,7 +6,6 @@ import org.example.HW_16.model.Pet;
 import org.example.HW_16.model.PetShelter;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class PetShelterService {
 
@@ -17,10 +16,6 @@ public class PetShelterService {
 
         this.appService = appService;
         this.petShelter = petShelter;
-        this.scanner = scanner;
-
-        appPrinter = new ApplicationPrinter(petShelter, this, scanner);
-        appPrinter.printMainMenu();
     }
 
     public int getCountOfDogs(){
@@ -50,14 +45,13 @@ public class PetShelterService {
 
     private Pet registerPet() {
 
-        System.out.println("\nRegistration:\n");
+        Server.sendMessage("\nRegistration:\n");
 
         KindOfPet kindOfPet = chooseKindOfPet();
         Gender gender = chooseGender();
 
-        System.out.print("Enter breed: ");
-        scanner.nextLine();
-        String breed = scanner.nextLine();
+        Server.sendMessage("Enter breed: ");
+        String breed = Server.getUserInput().toLowerCase();
 
         return Pet.builder()
                 .kind(kindOfPet)
@@ -69,7 +63,7 @@ public class PetShelterService {
     private KindOfPet chooseKindOfPet() {
         ApplicationPrinter.printKindOfPetsToChose();
 
-        return switch (scanner.next()) {
+        return switch (Server.getUserInput().toLowerCase()) {
             case "1" -> KindOfPet.DOG;
             case "2" -> KindOfPet.CAT;
             default -> chooseKindOfPet();
@@ -79,7 +73,7 @@ public class PetShelterService {
     private Gender chooseGender() {
         ApplicationPrinter.printGendersToChose();
 
-        return switch (scanner.next()) {
+        return switch (Server.getUserInput().toLowerCase()) {
             case "1" -> Gender.MALE;
             case "2" -> Gender.FEMALE;
             default -> chooseGender();
@@ -104,7 +98,7 @@ public class PetShelterService {
         boolean wrongInput = true;
 
         do {
-            String userInput = scanner.next().toLowerCase();
+            String userInput = Server.getUserInput().toLowerCase();
 
             if (userInput.equals("0")) {
                 wrongInput = false;
@@ -117,7 +111,7 @@ public class PetShelterService {
             }
         } while (wrongInput);
 
-        System.out.println("Thanks for taking pet!");
-        appPrinter.printMainMenu();
+        Server.sendMessage("Thanks for taking pet!");
+        appService.applicationPrinter.printMainMenu();
     }
 }
