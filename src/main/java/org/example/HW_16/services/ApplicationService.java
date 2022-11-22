@@ -2,33 +2,28 @@ package org.example.HW_16.services;
 
 import org.example.HW_16.model.PetShelter;
 
-import java.util.Scanner;
-
 public class ApplicationService {
 
-    private static PetShelterSerializer petShelterSerializer;
+    public final PetShelter petShelter;
     private static final String PATH_TO_STORE = "src/main/resources/HW_16/petShelter.json";
-    private static PetShelter petShelter;
-    private static Scanner scanner;
 
-    public static void start() {
+    public final PetShelterService petShelterService;
+    public final ApplicationPrinter applicationPrinter;
 
-        System.out.println("""
-                
-                == == == == == == == == == == == ==
-                Pet shelter application welcomes you
-                == == == == == == == == == == == ==""");
+    public ApplicationService() {
 
-        petShelterSerializer = new PetShelterSerializer();
-        petShelter = petShelterSerializer.deserialize(PATH_TO_STORE);
-        scanner = new Scanner(System.in);
-        new PetShelterService(petShelter, scanner);
+        petShelter = PetShelterSerializer.restoreFromStorage(PATH_TO_STORE);
+        petShelterService = new PetShelterService(this, petShelter);
+
+        Server.sendMessage("Pet shelter application welcomes you");
+        applicationPrinter = new ApplicationPrinter(this, petShelterService);
+        applicationPrinter.printMainMenu();
     }
 
-    public static void closeApplication() {
+    public void closeApplication() {
 
-        petShelterSerializer.serialize(PATH_TO_STORE, petShelter);
-        scanner.close();
+        PetShelterSerializer.saveToStorage(PATH_TO_STORE, petShelter);
+        Server.sendMessage("Application is closed.");
         System.exit(0);
     }
 }

@@ -8,23 +8,23 @@ import java.io.IOException;
 
 public class PetShelterSerializer {
 
-    private final JsonMapper JSONMapper = new JsonMapper();
+    private static final JsonMapper JSON_MAPPER = new JsonMapper();
 
-    public void serialize(String path, PetShelter petShelter) {
+    public static void saveToStorage(String path, PetShelter petShelter) {
 
         try {
-            JSONMapper.writeValue(new File(path), petShelter);
+            JSON_MAPPER.writeValue(new File(path), petShelter);
         } catch (IOException e) {
             System.out.println("Can't save Pet shelter state into the file!");
         }
     }
 
-    public PetShelter deserialize(String path) {
+    public static PetShelter restoreFromStorage(String path) {
 
         try {
-            return JSONMapper.readValue(new File(path), PetShelter.class);
+            return JSON_MAPPER.readValue(new File(path), PetShelter.class);
         } catch (IOException e) {
-            System.out.println("Nothing to restore. Created new pet shelter store.");
+            System.out.println("Nothing to restore. Created new pet shelter storage.");
             return new PetShelter();
         }
     }

@@ -6,44 +6,52 @@ import org.example.HW_16.model.Pet;
 import org.example.HW_16.model.PetShelter;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class PetShelterService {
 
+    private final ApplicationService appService;
     private final PetShelter petShelter;
-    private final ApplicationPrinter appPrinter;
-    private final Scanner scanner;
 
-    public PetShelterService(PetShelter petShelter, Scanner scanner) {
+    public PetShelterService(ApplicationService appService, PetShelter petShelter) {
 
+        this.appService = appService;
         this.petShelter = petShelter;
-        this.scanner = scanner;
+    }
 
-        appPrinter = new ApplicationPrinter(petShelter, this, scanner);
-        appPrinter.printMainMenu();
+    public int getCountOfDogs(){
+        return petShelter.getDogsAviary().size();
+    }
+
+    public int getCountOfCats(){
+        return petShelter.getCatsAviary().size();
+    }
+
+    public List<Pet> getDogs(){
+        return petShelter.getDogsAviary();
+    }
+
+    public List<Pet> getCats(){
+        return petShelter.getCatsAviary();
     }
 
     public void leavePet() {
 
         Pet pet = registerPet();
-        List<Pet> petAviary = pet.getKind() == KindOfPet.DOG ?
-                petShelter.getDogsAviary() :
-                petShelter.getCatsAviary();
+        List<Pet> petAviary = pet.getKind() == KindOfPet.DOG ? getDogs() : getCats();
         petAviary.add(pet);
 
-        appPrinter.printMainMenu();
+        appService.applicationPrinter.printMainMenu();
     }
 
     private Pet registerPet() {
 
-        System.out.println("\nRegistration:\n");
+        Server.sendMessage("\nRegistration:\n");
 
         KindOfPet kindOfPet = chooseKindOfPet();
         Gender gender = chooseGender();
 
-        System.out.print("Enter breed: ");
-        scanner.nextLine();
-        String breed = scanner.nextLine();
+        Server.sendMessage("Enter breed: ");
+        String breed = Server.getUserInput().toLowerCase();
 
         return Pet.builder()
                 .kind(kindOfPet)
@@ -55,7 +63,7 @@ public class PetShelterService {
     private KindOfPet chooseKindOfPet() {
         ApplicationPrinter.printKindOfPetsToChose();
 
-        return switch (scanner.next()) {
+        return switch (Server.getUserInput().toLowerCase()) {
             case "1" -> KindOfPet.DOG;
             case "2" -> KindOfPet.CAT;
             default -> chooseKindOfPet();
@@ -65,7 +73,7 @@ public class PetShelterService {
     private Gender chooseGender() {
         ApplicationPrinter.printGendersToChose();
 
-        return switch (scanner.next()) {
+        return switch (Server.getUserInput().toLowerCase()) {
             case "1" -> Gender.MALE;
             case "2" -> Gender.FEMALE;
             default -> chooseGender();
@@ -90,20 +98,20 @@ public class PetShelterService {
         boolean wrongInput = true;
 
         do {
-            String userInput = scanner.next().toLowerCase();
+            String userInput = Server.getUserInput().toLowerCase();
 
             if (userInput.equals("0")) {
                 wrongInput = false;
-                appPrinter.printTakingPetMenu();
+                appService.applicationPrinter.printTakingPetMenu();
             } else if (userInput.equals("x")) {
-                ApplicationService.closeApplication();
+                appService.closeApplication();
             } else if (isInputCorrect(userInput, pets.size())) {
                 wrongInput = false;
                 pets.remove(Integer.parseInt(userInput) - 1);
             }
         } while (wrongInput);
 
-        System.out.println("Thanks for taking pet!");
-        appPrinter.printMainMenu();
+        Server.sendMessage("Thanks for taking pet!");
+        appService.applicationPrinter.printMainMenu();
     }
 }
